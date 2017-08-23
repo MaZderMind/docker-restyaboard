@@ -18,6 +18,10 @@ sed -i "s/^.*'R_DB_USER'.*$/define('R_DB_USER', '${DB_USER}');/g" /usr/share/ngi
 sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', '${DB_PASSWORD}');/g" /usr/share/nginx/html/server/php/config.inc.php
 sed -i "s/^.*'R_DB_NAME'.*$/define('R_DB_NAME', '${DB_NAME}');/g" /usr/share/nginx/html/server/php/config.inc.php
 
+if [ -n "${SMTP_RELAYHOST}" ]; then
+  sed -i "s/^.*relayhost.*$/relayhost = [${SMTP_RELAYHOST}]/g" /etc/postfix/main.cf
+fi
+
 export PGHOST=$DB_HOST
 export PGPORT=$DB_PORT
 export PGUSER=$DB_USER
